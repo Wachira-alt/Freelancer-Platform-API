@@ -5,6 +5,6 @@ from app.database.engine import engine
 # each interaction with the database uses a sesssiom
 sessionLocal = sessionmaker(bind=engine)
 
-db = sessionLocal()
+# db = sessionLocal()
 
 #Think of sessionlocal() as "open database workspace "
