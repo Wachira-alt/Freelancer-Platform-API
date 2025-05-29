@@ -11,3 +11,4 @@ from . import client
 from . import freelancer
 from . import job
 from . import proposal
+from . import hired_proposal
