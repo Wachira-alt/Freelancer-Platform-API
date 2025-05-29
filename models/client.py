@@ -17,3 +17,5 @@ class Client(Base):
     # Relationship to User model (backref allows user.clients access)
     user = relationship("User", back_populates="client")
     jobs = relationship("Job", back_populates = "client")
+    reviews = relationship("Review", back_populates="client", cascade="all, delete-orphan")
+

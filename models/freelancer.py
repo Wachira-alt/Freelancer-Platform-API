@@ -18,6 +18,8 @@ class Freelancer(Base):
 
     user = relationship("User", back_populates="freelancer")
     proposals = relationship("Proposal", back_populates="freelancer", cascade="all, delete-orphan")
+    reviews = relationship("Review", back_populates="freelancer", cascade="all, delete-orphan")
+
 
 
     def __repr__(self):
