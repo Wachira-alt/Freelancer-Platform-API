@@ -17,7 +17,8 @@ class Freelancer(Base):
     user_id = Column(Integer, ForeignKey("users.id"), unique=True, nullable=False)
 
     user = relationship("User", back_populates="freelancer")
-    proposal = relationship("Proposal", back_populates="freelancer", cascade = "all, delete-orphan")
+    proposals = relationship("Proposal", back_populates="freelancer", cascade="all, delete-orphan")
+
 
     def __repr__(self):
       return f"<Freelancer(id={self.id}, title='{self.title}', hourly_rate={self.hourly_rate})>"

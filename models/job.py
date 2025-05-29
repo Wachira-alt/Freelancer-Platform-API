@@ -13,4 +13,4 @@ class Job(Base):
   client_id = Column(Integer, ForeignKey('clients.id'), nullable=False)
 
   client = relationship("Client", back_populates="jobs")
-  proposal = relationship("Proposal", back_populates="job", cascade="all, delete-orphan")
+  proposals = relationship("Proposal", back_populates="job", cascade="all, delete-orphan")
