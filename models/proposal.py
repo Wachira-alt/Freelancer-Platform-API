@@ -19,3 +19,5 @@ class Proposal(Base):
     # Relationships
     job = relationship("Job", back_populates="proposals")
     freelancer = relationship("Freelancer", back_populates="proposals")
+    hired_proposal = relationship("HiredProposal", uselist=False, back_populates="proposal")
+

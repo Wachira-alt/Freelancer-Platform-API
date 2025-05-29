@@ -14,3 +14,4 @@ class Job(Base):
 
   client = relationship("Client", back_populates="jobs")
   proposals = relationship("Proposal", back_populates="job", cascade="all, delete-orphan")
+  hired_proposal = relationship("HiredProposal", uselist=False, back_populates="job")
