@@ -1,6 +1,6 @@
 # an association table for many to many relationship between freelancers and project
 
-# app/models/freelancer_project.py
+# no class needed
 
 from sqlalchemy import Table, Column, Integer, ForeignKey
 from database.base import Base

@@ -1,7 +1,6 @@
 import sys
 import os
 
-# ✅ Make sure we can import from `app/`
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
 from database.session import sessionLocal
@@ -13,40 +12,41 @@ def seed_freelancers():
     db = sessionLocal()
 
     try:
-        # ✅ Only select users who are not clients or freelancers
+        # Get up to 15 users not assigned as client or freelancer yet
         available_users = db.query(User).filter(
             User.client == None,
             User.freelancer == None
-        ).limit(3).all()
+        ).limit(15).all()
 
-        if len(available_users) < 3:
-            print("❌ Not enough users available to assign as freelancers.")
+        if len(available_users) < 15:
+            print(f"❌ Not enough users available to assign as freelancers. Found only {len(available_users)}")
             return
 
-        freelancers = [
-            Freelancer(
-                title="Web Developer",
-                bio="Experienced full-stack developer with React and Flask.",
-                hourly_rate=30.0,
-                user=available_users[0]
-            ),
-            Freelancer(
-                title="Graphic Designer",
-                bio="Creative designer specializing in logos and branding.",
-                hourly_rate=25.0,
-                user=available_users[1]
-            ),
-            Freelancer(
-                title="Content Writer",
-                bio="Writes SEO-friendly blog posts and articles.",
-                hourly_rate=20.0,
-                user=available_users[2]
-            ),
+        freelancers = []
+        titles = ["Web Developer", "Graphic Designer", "Content Writer", "SEO Specialist", "Mobile App Developer"]
+        bios = [
+            "Experienced full-stack developer with React and Flask.",
+            "Creative designer specializing in logos and branding.",
+            "Writes SEO-friendly blog posts and articles.",
+            "Expert in improving search engine rankings.",
+            "Builds responsive and user-friendly mobile apps."
         ]
+        hourly_rates = [30.0, 25.0, 20.0, 35.0, 40.0]
+
+        # Cycle through titles, bios, rates to assign freelancers to users
+        for i, user in enumerate(available_users):
+            idx = i % len(titles)
+            freelancer = Freelancer(
+                title=titles[idx],
+                bio=bios[idx],
+                hourly_rate=hourly_rates[idx],
+                user=user
+            )
+            freelancers.append(freelancer)
 
         db.add_all(freelancers)
         db.commit()
-        print("✅ Seeded freelancers successfully.")
+        print(f"✅ Seeded {len(freelancers)} freelancers successfully.")
 
     except IntegrityError as e:
         db.rollback()
