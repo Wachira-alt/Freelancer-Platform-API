@@ -20,3 +20,5 @@ from models.freelancer import Freelancer
 from models.proposal import Proposal
 from models.review import Review
 from models.hired_proposal import HiredProposal
+from models.project import Project
+from models.freelancer_project import freelancer_project

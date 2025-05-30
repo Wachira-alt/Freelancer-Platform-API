@@ -20,6 +20,10 @@ class Freelancer(Base):
     proposals = relationship("Proposal", back_populates="freelancer", cascade="all, delete-orphan")
     reviews = relationship("Review", back_populates="freelancer", cascade="all, delete-orphan")
 
+    # many to many relationship with project
+    projects = relationship("Project", secondary="freelancer_project", back_populates="freelancers")
+
+
 
 
     def __repr__(self):

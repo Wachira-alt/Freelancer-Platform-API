@@ -21,3 +21,5 @@ class Proposal(Base):
     freelancer = relationship("Freelancer", back_populates="proposals")
     hired_proposal = relationship("HiredProposal", uselist=False, back_populates="proposal")
 
+    # one to one relationship if the project is being handled by one person
+
