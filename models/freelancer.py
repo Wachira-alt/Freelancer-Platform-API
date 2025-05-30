@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, ForeignKey
 from sqlalchemy.sql import func
-from app.database.base import Base
+from database.base import Base
 from sqlalchemy.orm import relationship
 
 class Freelancer(Base):

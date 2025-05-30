@@ -4,10 +4,10 @@ import os
 # Add app/ to Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
-from app.database.session import sessionLocal
-from app.models.hired_proposal import HiredProposal
-from app.models.job import Job
-from app.models.proposal import Proposal
+from database.session import sessionLocal
+from models.hired_proposal import HiredProposal
+from models.job import Job
+from models.proposal import Proposal
 from sqlalchemy.exc import IntegrityError
 
 def seed_hired_proposals():

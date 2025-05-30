@@ -4,8 +4,8 @@ import os
 # ✅ Add this so Python can find `app/` when run from CLI
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
-from app.database.session import sessionLocal
-from app.models.user import User
+from database.session import sessionLocal
+from models.user import User
 from sqlalchemy.exc import IntegrityError
 
 def seed_users():

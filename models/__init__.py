@@ -6,11 +6,17 @@
 # from app.models import Proposal
 
 
-from . import user
-from . import client
-from . import freelancer
-from . import job
-from . import proposal
-from . import hired_proposal
-from .review import Review
+#IF THERE IS AN APP.MODELS
+# from . import freelancer
+# from . import job
+# from . import proposal
+# from . import hired_proposal
+# from .review import Review
 
+from models.user import User
+from models.client import Client
+from models.job import Job
+from models.freelancer import Freelancer
+from models.proposal import Proposal
+from models.review import Review
+from models.hired_proposal import HiredProposal

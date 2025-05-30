@@ -1,6 +1,6 @@
-from app.database.session import sessionLocal
-from app.models.job import Job
-from app.models.client import Client
+from database.session import sessionLocal
+from models.job import Job
+from models.client import Client
 
 # Create a new session
 session = sessionLocal()

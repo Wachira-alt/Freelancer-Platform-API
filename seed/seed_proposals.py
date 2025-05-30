@@ -6,10 +6,10 @@ import random
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
 from sqlalchemy.exc import IntegrityError
-from app.database.session import sessionLocal
-from app.models.job import Job
-from app.models.freelancer import Freelancer
-from app.models.proposal import Proposal
+from database.session import sessionLocal
+from models.job import Job
+from models.freelancer import Freelancer
+from models.proposal import Proposal
 
 def seed_proposals():
     db = sessionLocal()

@@ -4,9 +4,9 @@ import os
 # ✅ Make sure we can import from `app/`
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
-from app.database.session import sessionLocal
-from app.models.freelancer import Freelancer
-from app.models.user import User
+from database.session import sessionLocal
+from models.freelancer import Freelancer
+from models.user import User
 from sqlalchemy.exc import IntegrityError
 
 def seed_freelancers():
