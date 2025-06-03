@@ -16,6 +16,8 @@ class Project(Base):
     completed_at = Column(DateTime)
 
     job_id = Column(Integer, ForeignKey("jobs.id"), nullable=False)
+    job = relationship("Job", back_populates="project")  
+
 
     #many to many relationship with project(still ha an association table)
 
