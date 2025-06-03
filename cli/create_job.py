@@ -15,10 +15,10 @@ def create_job():
         # Fetch all clients
         clients = db.query(Client).all()
         if not clients:
-            print("❌ No clients found. Please create clients first.")
+            print(" No clients found. Please create clients first.")
             return
 
-        print("\n📋 Available Clients:")
+        print("\n Available Clients:")
         for client in clients:
             print(f"{client.id}. {client.user.full_name} (@{client.user.username})")
 
@@ -26,12 +26,12 @@ def create_job():
         try:
             client_id = int(input("\nEnter the ID of the client creating the job: ").strip())
         except ValueError:
-            print("❌ Invalid input. Please enter a numeric client ID.")
+            print(" Invalid input. Please enter a numeric client ID.")
             return
 
         client = db.query(Client).filter(Client.id == client_id).first()
         if not client:
-            print("❌ No client found with that ID.")
+            print(" No client found with that ID.")
             return
 
         # Gather job details
@@ -41,7 +41,7 @@ def create_job():
         try:
             budget = float(input("Enter job budget (e.g., 1000.50): ").strip())
         except ValueError:
-            print("❌ Invalid budget. Please enter a valid number.")
+            print(" Invalid budget. Please enter a valid number.")
             return
 
         # Create and save job
@@ -55,11 +55,11 @@ def create_job():
         db.add(job)
         db.commit()
 
-        print(f"\n✅ Job '{title}' created successfully for client '{client.user.full_name}' (ID: {client.id})")
+        print(f"\n Job '{title}' created successfully for client '{client.user.full_name}' (ID: {client.id})")
 
     except Exception as e:
         db.rollback()
-        print("❌ Error creating the job:", e)
+        print(" Error creating the job:", e)
 
     finally:
         db.close()
