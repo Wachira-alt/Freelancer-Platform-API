@@ -1,7 +1,7 @@
-import sys  #they enable us to import files outside cli/
+import sys
 import os
 
-#fix import path
+# Fix import path to allow running from CLI
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 
 from database.session import sessionLocal
@@ -9,55 +9,61 @@ from models.client import Client
 from models.job import Job
 
 def create_job():
-  db = sessionLocal() #creates a temporary connection to the database
+    db = sessionLocal()
 
-  try:
+    try:
+        # Fetch all clients
+        clients = db.query(Client).all()
+        if not clients:
+            print("❌ No clients found. Please create clients first.")
+            return
 
-    #list existing clients
-    clients = db.query(Client).all()
-    if not clients:
-      print("No clients found. create clients first")
-      return
-    
-    print("Available Clients:")
-    for client in clients:
-      print(f"{client.id}, {client.user.full_name} ({client.user.username})")
+        print("\n📋 Available Clients:")
+        for client in clients:
+            print(f"{client.id}. {client.user.full_name} (@{client.user.username})")
 
+        # Validate client ID
+        try:
+            client_id = int(input("\nEnter the ID of the client creating the job: ").strip())
+        except ValueError:
+            print("❌ Invalid input. Please enter a numeric client ID.")
+            return
 
-    client_id = int(input("Enter the ID of the client creating the job: "))
-    client = db.query(Client).filter(Client.id == client_id).first()
+        client = db.query(Client).filter(Client.id == client_id).first()
+        if not client:
+            print("❌ No client found with that ID.")
+            return
 
-    if not client:    #defensive programming
-      print("Invalid client ID")
-      return
-    
-    #job input
-    title = input("Enter job title")
-    description = input("Enter job description: ")
-    budget = float(input("Enter job budget: "))
+        # Gather job details
+        title = input("Enter job title: ").strip()
+        description = input("Enter job description: ").strip()
 
-    job = Job(
-      title = title,
-      description = description,
-      budget = budget,
-      client = client  #setting client id automatically
-    )
+        try:
+            budget = float(input("Enter job budget (e.g., 1000.50): ").strip())
+        except ValueError:
+            print("❌ Invalid budget. Please enter a valid number.")
+            return
 
-    db.add(job)
-    db.commit()
-    print(f"job {title} created successfully for client '{client}'")
+        # Create and save job
+        job = Job(
+            title=title,
+            description=description,
+            budget=budget,
+            client=client
+        )
 
-#error handling incase anything goes wrong eg invalid input, DB error....
-  except Exception as e:     
-    db.rollback()
-    print("Error creating the job:", e)
+        db.add(job)
+        db.commit()
 
+        print(f"\n✅ Job '{title}' created successfully for client '{client.user.full_name}' (ID: {client.id})")
 
-# close the db connection even if there was an error
-  finally:
-    db.close()
+    except Exception as e:
+        db.rollback()
+        print("❌ Error creating the job:", e)
 
-    #only run create_job if the script is run directly, not imported from another file
+    finally:
+        db.close()
+
 
 if __name__ == "__main__":
-  create_job()
+    create_job()
