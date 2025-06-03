@@ -12,6 +12,10 @@ class Job(Base):
   budget = Column(Float)
   client_id = Column(Integer, ForeignKey('clients.id'), nullable=False)
 
+  project = relationship("Project", uselist=False, back_populates="job")
+
+
   client = relationship("Client", back_populates="jobs")
   proposals = relationship("Proposal", back_populates="job", cascade="all, delete-orphan")
-  hired_proposal = relationship("HiredProposal", uselist=False, back_populates="job")
+  hired_proposal = relationship("HiredProposal", back_populates="job", uselist=False)
+

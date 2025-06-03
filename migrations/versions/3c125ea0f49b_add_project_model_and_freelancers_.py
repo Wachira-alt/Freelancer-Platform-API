@@ -1,8 +1,8 @@
-"""feat: create projects and freelancer_project tables
+"""Add Project model and freelancers_projects table
 
-Revision ID: 36fa91f3c711
-Revises: 56b85bb642a0
-Create Date: 2025-05-30 10:46:21.086296
+Revision ID: 3c125ea0f49b
+Revises: 63c4739cd88f
+Create Date: 2025-06-03 13:21:46.603362
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '36fa91f3c711'
-down_revision: Union[str, None] = '56b85bb642a0'
+revision: str = '3c125ea0f49b'
+down_revision: Union[str, None] = '63c4739cd88f'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -26,6 +26,8 @@ def upgrade() -> None:
     sa.Column('description', sa.String(), nullable=True),
     sa.Column('started_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('completed_at', sa.DateTime(), nullable=True),
+    sa.Column('job_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['job_id'], ['jobs.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('freelancer_project',

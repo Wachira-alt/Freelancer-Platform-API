@@ -1,6 +1,6 @@
 # app/models/project.py
 
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from database.base import Base
@@ -14,6 +14,8 @@ class Project(Base):
     description = Column(String)
     started_at = Column(DateTime, server_default=func.now())
     completed_at = Column(DateTime)
+
+    job_id = Column(Integer, ForeignKey("jobs.id"), nullable=False)
 
     #many to many relationship with project(still ha an association table)
 

@@ -18,16 +18,21 @@ class Freelancer(Base):
 
     user = relationship("User", back_populates="freelancer")
     proposals = relationship("Proposal", back_populates="freelancer", cascade="all, delete-orphan")
-    reviews = relationship("Review", back_populates="freelancer", cascade="all, delete-orphan")
+    
 
     # many to many relationship with project
     projects = relationship("Project", secondary="freelancer_project", back_populates="freelancers")
+
+
+    reviews = relationship("Review", back_populates="freelancer", cascade="all, delete-orphan")
 
 
 
 
     def __repr__(self):
       return f"<Freelancer(id={self.id}, title='{self.title}', hourly_rate={self.hourly_rate})>"
+    
+
 
     
    
